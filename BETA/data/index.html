@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME SECURITY MONITOR</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/fb15acb17c.js" crossorigin="anonymous"></script>
+    <meta http-equiv="refresh" content="5">
+</head>
+
+<body>
+    <div class="container">
+        <!-- NAVIGATION BAR -->
+        <div class="container-navbar">
+            <ul class="ul-navbar">
+                <li class="li-navbar">
+                    <a href="#" class="a-navbar">Home Security Monitor</a>
+                </li>
+        </div>
+        <!-- NAVIGATION BAR END -->
+
+        <!-- CONTENT 1 -->
+        <div class="container-content">
+            <div class="temperature">SUHU</div>
+            <div class="box">
+            <div class="datasuhu">Suhu: <span id="temperature"></span>&deg;C</div>
+            </div>
+
+            <div class="kelembaban">KELEMBABAN</div>
+		    <div class="box">
+            <div class="datakelembaban">Kelembaban: <span id="humidity"></span>%</div>
+            </div>
+
+            <div class="api">SENSOR API</div>
+		    <div class="box">
+            <div class="dataapi">Indikator Api: <span id="fire"></span></div>
+            </div>
+
+            <div class="hujan">SENSOR HUJAN</div>
+		    <div class="box">
+            <div class="datahujan">Indikator Hujan: <span id="rain"></span></div>
+            </div>
+
+               <script>
+      function getData() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var data = JSON.parse(this.responseText);
+            document.getElementById("temperature").innerHTML = data.temperature;
+            document.getElementById("humidity").innerHTML = data.humidity;
+            document.getElementById("fire").innerHTML = data.fire ? "Aktif" : "Tidak Aktif";
+            document.getElementById("rain").innerHTML = data.rain ? "Aktif" : "Tidak Aktif";
+          }
+        };
+        xhr.open("GET", "/data", true);
+        xhr.send();
+      }
+      setInterval(getData, 5000);
+    </script>
+
+        <!-- CONTENT 1 END -->
+            </div>
+        <!-- FOOTER -->
+        <div class="container-footer">
+            <h5 class="h5-footer">Website Ini Dibuat Oleh Kelompok 3</h5>
+        </div>
+        <!-- FOOTER END -->
+    </div>
+</body>
+
+</html>
